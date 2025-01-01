@@ -16,9 +16,10 @@ public class Dish
     [MaxLength(200)]
     public string Description { get; set; } = default!;
 
-
+    [Required]
     public decimal Price { get; set; }
 
+    public int? KiloCalories { get; set; }
 
     [Required]
     [ForeignKey("Resatuarant")]
