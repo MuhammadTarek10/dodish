@@ -3,10 +3,8 @@ using Domain.Entities;
 
 namespace Infrastructure.Persistance;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
     internal DbSet<Restaurant> Restaurants { get; set; } = default!;
     internal DbSet<Dish> Dishes { get; set; } = default!;
 
