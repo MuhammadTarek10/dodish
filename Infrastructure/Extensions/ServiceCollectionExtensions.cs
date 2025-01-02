@@ -3,6 +3,8 @@ using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Seeders;
+using Domain.Repositories;
+using Infrastructure.Repositories;
 
 namespace Infrastructure.Extentions;
 
@@ -15,6 +17,7 @@ public static class ServiceCollectionExtensions
 
         services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
         services.AddScoped<ISeeder, Seeder>();
+        services.AddScoped<IRestaurantRepository, RestaurantRepository>();
     }
 
 }

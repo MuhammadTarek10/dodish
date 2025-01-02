@@ -16,7 +16,6 @@ var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
 
 await seeder.Seed();
 
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

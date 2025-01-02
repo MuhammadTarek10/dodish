@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities;
+namespace Application.Dtos;
 
-public class Restaurant
+public class RestaurantDto
 {
     [Key]
     public Guid Id { get; set; }
@@ -22,14 +22,16 @@ public class Restaurant
     [Required]
     public bool HasDelivery { get; set; } = false;
 
-    [Phone]
-    public string? ContactNumber { get; set; }
+    [MaxLength(50)]
+    public string? ContactName { get; set; }
 
     [EmailAddress]
     [MaxLength(50)]
     public string? ContactEmail { get; set; }
 
-    public Address? Address { get; set; }
+    public string? City { get; set; }
+    public string? Street { get; set; }
+    public string? PostalCode { get; set; }
 
-    public List<Dish> Dishes { get; set; } = [];
+    public List<DishDto> Dishes { get; set; } = [];
 }
