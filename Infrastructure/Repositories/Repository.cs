@@ -1,16 +1,19 @@
 using System.Linq.Expressions;
+using Domain.Repositories;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class Repository<T>(AppDbContext context) : IRepository<T> where T : class
+public class Repository<T>(AppDbContext context) : IRepository<T> where T : class, IEntityWithGuidId
 {
     private readonly DbSet<T> dbSet = context.Set<T>();
 
-    public async Task AddAsync(T entity)
+    public async Task<Guid> AddAsync(T entity)
     {
         await dbSet.AddAsync(entity);
+        await context.SaveChangesAsync();
+        return entity.Id;
     }
 
     public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter)

@@ -22,8 +22,8 @@ public class RestaurantDto
     [Required]
     public bool HasDelivery { get; set; } = false;
 
-    [MaxLength(50)]
-    public string? ContactName { get; set; }
+    [Phone]
+    public string? ContactNumber { get; set; }
 
     [EmailAddress]
     [MaxLength(50)]

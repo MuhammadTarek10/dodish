@@ -3,6 +3,7 @@ using Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Restaurants.Queries;
+using Application.Restaurants.Commands;
 
 namespace Api.Controllers;
 
@@ -27,5 +28,13 @@ public class RestaurantController(IMediator mediator) : ControllerBase
         if (restaurant is null) return NotFound();
 
         return Ok(restaurant);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateRestaurantCommand command)
+    {
+
+        Guid id = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetById), new { id }, null);
     }
 }

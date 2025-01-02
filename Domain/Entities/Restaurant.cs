@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities;
 
-public class Restaurant
+public class Restaurant : IEntityWithGuidId
 {
     [Key]
     public Guid Id { get; set; }

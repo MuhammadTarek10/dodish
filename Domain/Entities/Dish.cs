@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
-public class Dish
+public class Dish : IEntityWithGuidId
 {
     [Key]
     public Guid Id { get; set; }
