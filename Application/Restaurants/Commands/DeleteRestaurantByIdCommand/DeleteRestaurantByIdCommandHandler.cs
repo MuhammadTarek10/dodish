@@ -5,16 +5,15 @@ using Domain.Entities;
 namespace Application.Restaurants.Commands;
 
 public class DeleteCommandByIdCommandHandler(
-    IRestaurantRepository repository) : IRequestHandler<DeleteRestaurantCommand, bool>
+    IRestaurantRepository repository) : IRequestHandler<DeleteRestaurantCommand>
 {
-    public async Task<bool> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
     {
         Restaurant? restaurant = await repository.GetAsync(r => r.Id == request.Id);
 
-        if (restaurant is null) return false;
+        if (restaurant is null) throw new Exception("Not Found");
 
         await repository.DeleteAsync(restaurant);
-        return true;
     }
 }
 

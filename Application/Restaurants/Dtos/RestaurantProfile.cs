@@ -8,6 +8,8 @@ public class RestaurantProfile : Profile
 {
     public RestaurantProfile()
     {
+        CreateMap<UpdateRestaurantCommand, Restaurant>();
+
         CreateMap<CreateRestaurantCommand, Restaurant>()
           .ForMember(d => d.Address, opt => opt.MapFrom(
                       src => src.City == null && src.Street == null && src.PostalCode == null ? null

@@ -13,7 +13,7 @@ public class RestaurantController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
+    public async Task<IActionResult> GetAll()
     {
         IEnumerable<RestaurantDto> restaurants = await mediator.Send(new GetAllRestaurantsQuery());
 
@@ -21,7 +21,7 @@ public class RestaurantController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<RestaurantDto>> GetById(Guid id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         RestaurantDto restaurant = await mediator.Send(new GetRestaurantByIdQuery(id));
         return Ok(restaurant);
@@ -37,13 +37,10 @@ public class RestaurantController(IMediator mediator) : ControllerBase
 
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<RestaurantDto>> DeleteById(Guid id)
+    public async Task<IActionResult> DeleteById(Guid id)
     {
-        bool isDeleted = await mediator.Send(new DeleteRestaurantCommand(id));
-
-        if (isDeleted) return NoContent();
-
-        return NotFound();
+        await mediator.Send(new DeleteRestaurantCommand(id));
+        return NoContent();
     }
 
 

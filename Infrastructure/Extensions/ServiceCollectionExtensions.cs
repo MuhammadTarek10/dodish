@@ -15,7 +15,10 @@ public static class ServiceCollectionExtensions
     {
         string? connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+        services.AddDbContext<AppDbContext>(
+                options => options.UseSqlite(connectionString)
+                                  .EnableSensitiveDataLogging());
+
         services.AddScoped<ISeeder, Seeder>();
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();
         services.AddScoped<IDishRepository, DishRepository>();

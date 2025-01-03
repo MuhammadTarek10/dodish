@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Application.Restaurants.Commands;
 
-public class UpdateRestaurantCommand : IRequest<bool>
+public class UpdateRestaurantCommand : IRequest
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = default!;
