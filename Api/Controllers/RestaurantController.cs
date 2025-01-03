@@ -23,18 +23,27 @@ public class RestaurantController(IMediator mediator) : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<RestaurantDto>> GetById(Guid id)
     {
-        RestaurantDto? restaurant = await mediator.Send(new GetRestaurantByIdQuery(id));
-
-        if (restaurant is null) return NotFound();
-
+        RestaurantDto restaurant = await mediator.Send(new GetRestaurantByIdQuery(id));
         return Ok(restaurant);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRestaurantCommand command)
     {
-
         Guid id = await mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id }, null);
     }
+
+
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<RestaurantDto>> DeleteById(Guid id)
+    {
+        bool isDeleted = await mediator.Send(new DeleteRestaurantCommand(id));
+
+        if (isDeleted) return NoContent();
+
+        return NotFound();
+    }
+
 }

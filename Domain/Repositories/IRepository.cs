@@ -8,6 +8,6 @@ public interface IRepository<T> where T : class, IEntityWithGuidId
     Task<T?> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false);
     Task<Guid> AddAsync(T entity);
     Task<bool> AnyAsync(Expression<Func<T, bool>> filter);
-    void Delete(T entity);
-    void Update(T entity);
+    Task Delete(T entity);
+    Task Update(T entity);
 }

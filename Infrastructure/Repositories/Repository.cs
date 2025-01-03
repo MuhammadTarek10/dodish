@@ -55,13 +55,15 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
         return await query.FirstOrDefaultAsync();
     }
 
-    public void Delete(T entity)
+    public async Task Delete(T entity)
     {
         dbSet.Remove(entity);
+        await context.SaveChangesAsync();
     }
 
-    public void Update(T entity)
+    public async Task Update(T entity)
     {
         dbSet.Update(entity);
+        await context.SaveChangesAsync();
     }
 }
