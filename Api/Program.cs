@@ -1,4 +1,5 @@
 using Api.Extensions;
+using Api.Middlewares;
 using Application.Extentions;
 using Infrastructure.Extentions;
 using Infrastructure.Seeders;
@@ -17,6 +18,7 @@ var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
 
 await seeder.Seed();
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestTimeLoggingMiddleware>();
 
 app.UseSerilogRequestLogging();
 

@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -33,6 +34,7 @@ public static class ApplicationBuilderExtensions
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddScoped<ErrorHandlingMiddleware>();
+        builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
 
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration)
