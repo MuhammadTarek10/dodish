@@ -1,5 +1,6 @@
 using AutoMapper;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ public class UpdateRestaurantCommandHandler(
 
         Restaurant? restaurant = await repository.GetAsync(r => r.Id == request.Id);
 
-        if (restaurant is null) throw new Exception("Not Found");
+        if (restaurant is null) throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
 
         Restaurant UpdatedRestaurant = mapper.Map(request, restaurant);
 
