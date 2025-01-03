@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class Repository<T>(AppDbContext context) : IRepository<T> where T : class, IEntityWithGuidId
+internal class Repository<T>(AppDbContext context) : IRepository<T> where T : class, IEntityWithGuidId
 {
     private readonly DbSet<T> dbSet = context.Set<T>();
 
@@ -55,13 +55,13 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task Delete(T entity)
+    public async Task DeleteAsync(T entity)
     {
         dbSet.Remove(entity);
         await context.SaveChangesAsync();
     }
 
-    public async Task Update(T entity)
+    public async Task UpdateAsync(T entity)
     {
         dbSet.Update(entity);
         await context.SaveChangesAsync();

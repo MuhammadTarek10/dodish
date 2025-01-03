@@ -13,7 +13,7 @@ public class DeleteCommandByIdCommandHandler(
 
         if (restaurant is null) return false;
 
-        repository.Delete(restaurant);
+        await repository.DeleteAsync(restaurant);
         return true;
     }
 }
