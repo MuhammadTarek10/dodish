@@ -5,12 +5,13 @@ using Microsoft.Extensions.Configuration;
 using Infrastructure.Seeders;
 using Domain.Repositories;
 using Infrastructure.Repositories;
+using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Extentions;
 
 public static class ServiceCollectionExtensions
 {
-
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         string? connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -18,6 +19,12 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<AppDbContext>(
                 options => options.UseSqlite(connectionString)
                                   .EnableSensitiveDataLogging());
+
+
+        services.AddIdentityApiEndpoints<User>()
+            .AddRoles<IdentityRole>()
+            // .AddClaimsPrincipalFactory<RestaurantsUserClaimsPrincipalFactory>()
+            .AddEntityFrameworkStores<AppDbContext>();
 
         services.AddScoped<ISeeder, Seeder>();
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();

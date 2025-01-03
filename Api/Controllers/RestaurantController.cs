@@ -9,6 +9,7 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/restaurant")]
+[Authorize]
 public class RestaurantController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
