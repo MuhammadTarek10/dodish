@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Restaurants.Queries;
 using Application.Restaurants.Commands;
+using Domain.Constants;
 
 namespace Api.Controllers;
 
@@ -33,6 +34,7 @@ public class RestaurantController(IMediator mediator) : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = UserRoles.Owner)]
     public async Task<IActionResult> Create([FromBody] CreateRestaurantCommand command)
     {
         Guid id = await mediator.Send(command);

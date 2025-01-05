@@ -16,7 +16,14 @@ public class GetAllRestaurantsHandler(
         GetAllRestaurantsQuery request,
         CancellationToken cancellationToken)
     {
-        IEnumerable<Restaurant> restaurants = await repository.GetAllAsync(includeProperties: "Dishes");
+        string? search = request.search?.ToLower();
+        IEnumerable<Restaurant> restaurants =
+            await repository.GetPagination(
+                    r => search == null ||
+                    (r.Name.ToLower().Contains(search) || r.Description.ToLower().Contains(search)),
+                    pageSize: request.pageSize,
+                    pageNumber: request.pageNumber,
+                    includeProperties: "Dishes");
 
         IEnumerable<RestaurantDto> dtos = mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
 

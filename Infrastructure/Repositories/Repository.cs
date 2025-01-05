@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Domain.Constants;
 using Domain.Repositories;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,10 @@ internal class Repository<T>(AppDbContext context) : IRepository<T> where T : cl
         return await dbSet.AnyAsync(filter);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
+    public async Task<IEnumerable<T>> GetAllAsync(
+        Expression<Func<T, bool>>? filter = null,
+        string? includeProperties = null,
+        bool tracked = false)
     {
         IQueryable<T> query = tracked ? dbSet : dbSet.AsNoTracking();
 
@@ -38,7 +42,43 @@ internal class Repository<T>(AppDbContext context) : IRepository<T> where T : cl
         return await query.ToListAsync();
     }
 
-    public async Task<T?> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
+
+    public async Task<(IEnumerable<T>, int)> GetPagination(
+        Expression<Func<T, bool>>? filter,
+        int pageSize,
+        int pageNumber,
+        string? sortBy,
+        SortDirection direction,
+        string? includeProperties,
+        bool tracked = false)
+    {
+        IQueryable<T> query = tracked ? dbSet : dbSet.AsNoTracking();
+
+        if (filter != null) query = query.Where(filter);
+
+        int totalCount = await query.CountAsync();
+
+        query = query.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+
+        // query = direction == SortDirection.Ascending ?
+        //                         query.OrderBy() :
+        //                         query.OrderByDescending()
+
+        if (!string.IsNullOrEmpty(includeProperties))
+        {
+            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+        }
+
+        return (await query.ToListAsync(), totalCount);
+    }
+
+    public async Task<T?> GetAsync(
+        Expression<Func<T, bool>> filter,
+        string? includeProperties = null,
+        bool tracked = false)
     {
         IQueryable<T> query = tracked ? dbSet : dbSet.AsNoTracking();
 
@@ -66,4 +106,5 @@ internal class Repository<T>(AppDbContext context) : IRepository<T> where T : cl
         dbSet.Update(entity);
         await context.SaveChangesAsync();
     }
+
 }

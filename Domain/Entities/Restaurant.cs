@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
@@ -32,4 +33,9 @@ public class Restaurant : IEntityWithGuidId
     public Address? Address { get; set; }
 
     public List<Dish> Dishes { get; set; } = [];
+
+    [Required]
+    [ForeignKey("User")]
+    public User Owner { get; set; } = default!;
+    public string OwnerId { get; set; } = default!;
 }
