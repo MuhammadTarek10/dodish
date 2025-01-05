@@ -88,7 +88,7 @@ Dodish/
 - `PUT /api/restaurants/{id}` - Update an existing restaurant
 - `DELETE /api/restaurants/{id}` - Delete a restaurant
 
-### Dishes (Part of Restaurants)
+### Dishes
 
 - `GET /api/restaurants/{restaurantId}/dishes` - List all dishes of a specific restaurant
 - `GET /api/restaurants/{restaurantId}/dishes/{dishId}` - Get details of a specific dish in a restaurant
