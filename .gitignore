@@ -482,8 +482,8 @@ $RECYCLE.BIN/
 *.swp
 
 # Database temporary files
-*.shm
-*.wal
+*-shm
+*-wal
 
 # videos
 *.avi
