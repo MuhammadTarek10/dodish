@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Restaurants.Queries;
 using Application.Restaurants.Commands;
 using Domain.Constants;
+using Application.Common;
 
 namespace Api.Controllers;
 
@@ -15,11 +16,11 @@ public class RestaurantController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll([FromQuery] GetAllRestaurantsQuery query)
     {
-        IEnumerable<RestaurantDto> restaurants = await mediator.Send(new GetAllRestaurantsQuery());
+        PageResult<RestaurantDto> result = await mediator.Send(query);
 
-        return Ok(restaurants);
+        return Ok(result);
     }
 
     [HttpGet("{id}")]

@@ -1,10 +1,11 @@
+using Application.Common;
 using Application.Dtos;
 using Domain.Constants;
 using MediatR;
 
 namespace Application.Restaurants.Queries;
 
-public class GetAllRestaurantsQuery : IRequest<IEnumerable<RestaurantDto>>
+public class GetAllRestaurantsQuery : IRequest<PageResult<RestaurantDto>>
 {
     public string? search { get; set; }
     public int pageSize { get; set; }
