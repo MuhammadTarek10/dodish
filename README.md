@@ -75,6 +75,8 @@ Dodish/
 
 ## API Endpoints
 
+![Dodish APIs](dodish-apis.png)
+
 ### Authentication (Identity)
 
 - `POST /api/identity/register` - Register a new user
