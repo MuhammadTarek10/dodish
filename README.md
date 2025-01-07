@@ -63,8 +63,6 @@ Dodish/
    cd dodish
    ```
 
-````
-
 2. Install the project dependencies:
 
    ```bash
@@ -82,8 +80,6 @@ Dodish/
    ```bash
    dotnet run
    ```
-
-````
 
 ## API Endpoints
 
@@ -109,6 +105,10 @@ Dodish/
 - `POST /api/restaurants/{restaurantId}/dishes` - Add a new dish to a restaurant
 - `PUT /api/restaurants/{restaurantId}/dishes/{dishId}` - Update a dish in a restaurant
 - `DELETE /api/restaurants/{restaurantId}/dishes/{dishId}` - Remove a dish from a restaurant
+
+```
+
+```
 
 ```
 
