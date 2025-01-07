@@ -1,5 +1,17 @@
 # Dodish
 
+<!--toc:start-->
+
+- [Dodish](#dodish)
+  - [Features](#features)
+  - [Project Structure](#project-structure)
+    - [Technologies Used](#technologies-used)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+  - [API Endpoints](#api-endpoints) - [Authentication (Identity)](#authentication-identity) - [Restaurants](#restaurants) - [Dishes](#dishes)
+  <!--toc:end-->
+
 **Dodish** is a restaurant management application that allows users to create and manage restaurants and their dishes. The application also includes authentication and authorization capabilities using Identity.
 
 ## Features
@@ -30,15 +42,11 @@ Dodish/
 
 ### Technologies Used
 
-```markdown
-## Technologies Used
-
 - **ASP.NET Core** for API development
 - **Entity Framework Core** for database management
 - **Swagger** for API documentation
 - **SQLite** as the database
 - **CQRS** pattern for application logic
-```
 
 ## Getting Started
 
@@ -54,6 +62,8 @@ Dodish/
    git clone https://github.com/yourusername/dodish.git
    cd dodish
    ```
+
+````
 
 2. Install the project dependencies:
 
@@ -97,3 +107,4 @@ Dodish/
 - `POST /api/restaurants/{restaurantId}/dishes` - Add a new dish to a restaurant
 - `PUT /api/restaurants/{restaurantId}/dishes/{dishId}` - Update a dish in a restaurant
 - `DELETE /api/restaurants/{restaurantId}/dishes/{dishId}` - Remove a dish from a restaurant
+````
